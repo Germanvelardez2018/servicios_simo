@@ -18,3 +18,7 @@ config.json
 # Cualquier otro archivo o directorio específico para tu proyecto
 # Ejemplo: carpeta de datos
 data/
+
+
+# Variables de entorno
+.env

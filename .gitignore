@@ -1,0 +1,20 @@
+# Archivos de byte compilado Python
+__pycache__/
+
+# Entorno virtual
+.venv/
+
+# Archivos generados por herramientas de construcción
+build/
+dist/
+
+# Archivos de registro y caches
+*.log
+*.cache
+
+# Archivo de configuración local
+config.json
+
+# Cualquier otro archivo o directorio específico para tu proyecto
+# Ejemplo: carpeta de datos
+data/

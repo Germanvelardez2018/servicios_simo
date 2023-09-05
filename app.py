@@ -24,15 +24,18 @@ class App:
         self.config = config
       
 
+    def collections_list(self):
+        collection_names = db.get_db().list_collection_names()
+        return collection_names
+
     def find_data(self,date=None,**filters):
         if date is None:
             date = get_date()
         try:
-            print(f"find data from {date}")
             return db.find_list(date,**filters)
         except db.MongoException as e:
             print(f"Exception:{e}")
-            return ["epe"]
+            return []
             
         
         
@@ -41,8 +44,13 @@ class App:
 if __name__ == "__main__":
     print("Iniciando el programa")
     app = App("simo interface")
-    filters = {'num': ':20230824194351.000'}
-    data = app.find_data("20230824",**filters)
+    filters = {}
+    print("Lista de colecciones almacenadas:")
+    clist = app.collections_list()
+    for e in clist:
+        print(f"\t{e}")
+    date = input("Obtener datos de fecha yyyymmdd: ")
+    data = app.find_data(date ,**filters)
     for element in data:
         pprint.pprint(element)
    

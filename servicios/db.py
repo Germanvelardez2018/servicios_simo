@@ -22,7 +22,6 @@ class MongoException(Exception):
 
 def get_client(url):
     """ Devuelve el cliente Mongo"""
-    print(f"client mongo url {url}")
     return pymongo.MongoClient(url)
 
 

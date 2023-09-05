@@ -1,4 +1,5 @@
 import servicios.db as db
+import servicios.mqtt as mqtt
 import time
 import pprint
 
@@ -39,18 +40,32 @@ class App:
             
         
         
-     
+
 
 if __name__ == "__main__":
-    print("Iniciando el programa")
-    app = App("simo interface")
-    filters = {}
-    print("Lista de colecciones almacenadas:")
-    clist = app.collections_list()
-    for e in clist:
-        print(f"\t{e}")
-    date = input("Obtener datos de fecha yyyymmdd: ")
-    data = app.find_data(date ,**filters)
-    for element in data:
-        pprint.pprint(element)
+
+    TEST_MQTT = True
+
+
+    if TEST_MQTT:
+        print("test mqtt")
+        client = mqtt.get_client()
+
+        client.loop_forever()
+        while True:
+            pass
+
+    else:
+
+        print("test db")
+        app = App("simo interface")
+        filters = {}
+        print("Lista de colecciones almacenadas:")
+        clist = app.collections_list()
+        for e in clist:
+            print(f"\t{e}")
+        date = input("Obtener datos de fecha yyyymmdd: ")
+        data = app.find_data(date ,**filters)
+        for element in data:
+            pprint.pprint(element)
    

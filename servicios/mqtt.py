@@ -70,7 +70,7 @@ def on_message(client, userdata, msg):
     if topic == 'REQUEST':
         params,index = _get_params(data)
         print(f"Comando ejecutado:{params}")
-        client.publish("EXC",last_command,qos=2,retain=False)
+        client.publish("APP",last_command,qos=2,retain=False)
         last_command = data
         client.publish("RETSHADOW",data,qos=2)
         return

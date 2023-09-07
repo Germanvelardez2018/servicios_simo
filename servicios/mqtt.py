@@ -19,7 +19,7 @@ TOPICS_LIST = [
                 "RETCMD",
                 "STATE",
                 "CMD",
-                "EXC"
+                "APP"
                 ]
 
 

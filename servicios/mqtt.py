@@ -15,7 +15,7 @@ load_dotenv()
 MQTT_URL = os.getenv("MQTT_URL")
 MQTT_PORT =1883
 TOPICS_LIST = [
-                "SHADOW",
+                "REQUEST",
                 "RETCMD",
                 "STATE",
                 "CMD",
@@ -67,7 +67,7 @@ def on_message(client, userdata, msg):
     data = msg.payload.decode('utf-8')
     topic = msg.topic
 
-    if topic == 'SHADOW':
+    if topic == 'REQUEST':
         params,index = _get_params(data)
         print(f"Comando ejecutado:{params}")
         client.publish("EXC",last_command,qos=2,retain=False)

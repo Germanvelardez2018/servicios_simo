@@ -96,7 +96,7 @@ def on_message(client, userdata, msg):
         print(f"Estado del dispositivos: \n{data}")
         if last_command is not None:
             print(f"ejecutando comando {last_command}")
-            client.publish("EXC",last_command,qos=2,retain=False)
+            client.publish("APP",last_command,qos=2,retain=False)
             last_command = None
         return
 

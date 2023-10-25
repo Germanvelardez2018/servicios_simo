@@ -15,11 +15,9 @@ load_dotenv()
 MQTT_URL = os.getenv("MQTT_URL")
 MQTT_PORT =1883
 TOPICS_LIST = [
-                "REQUEST",
                 "RETCMD",
                 "STATE",
                 "CMD",
-                "APP"
                 ]
 
 
@@ -55,7 +53,7 @@ def _insert_data(id,date,data):
     json["data"]=data
     obj = db.find(date,**{"num":id})           
     if obj == None:
-        print(Fore.BLUE + f"dato insertado:{json}")
+        print(Fore.BLUE + f"\tdato insertado:{json}")
         print(Style.RESET_ALL)
         db.insert_data(date,**json)
 
@@ -67,13 +65,7 @@ def on_message(client, userdata, msg):
     data = msg.payload.decode('utf-8')
     topic = msg.topic
 
-    if topic == 'REQUEST':
-        params,index = _get_params(data)
-        print(f"Comando ejecutado:{params}")
-        client.publish("APP",last_command,qos=2,retain=False)
-        last_command = data
-        client.publish("RETSHADOW",data,qos=2)
-        return
+    
 
     if topic == 'CMD':
         data = data[:-1]
@@ -83,21 +75,17 @@ def on_message(client, userdata, msg):
             if date :
                 _insert_data(id,date,_data)
             else:
-                print(Fore.RED+"dato invalido, descartar")
+                print(Fore.RED+"\tdato invalido, descartar")
                 print(Style.RESET_ALL)
 
 
     if topic == 'RETCMD':
-        print(f"Comando ejecutado, retorno {data}")
+        print(f"\tComando ejecutado, retorno {data}")
         last_command = None
         return
 
     if topic == 'STATE':
-        print(f"Estado del dispositivos: \n{data}")
-        if last_command is not None:
-            print(f"ejecutando comando {last_command}")
-            client.publish("APP",last_command,qos=2,retain=False)
-            last_command = None
+        print(f"\tEstado del dispositivos: \n\t{data}")
         return
 
     
@@ -111,10 +99,10 @@ _client.on_message = on_message
 try:
     _client.connect(MQTT_URL,MQTT_PORT,60)
     for e in TOPICS_LIST:
-        print(f"sub a {e}")
+        print(f"\tsub a {e}")
         _client.subscribe(e)
 except Exception as e:
-    print(f"Error:{e}")
+    print(f"\ŧError:{e}")
 
 
 
